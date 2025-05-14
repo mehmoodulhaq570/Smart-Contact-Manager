@@ -1,0 +1,5 @@
+/* .src/main/resources/static/index.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
