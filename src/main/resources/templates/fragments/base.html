@@ -2,6 +2,7 @@
 <!-- This contains all the common things that can be used by other html files -->
 <!-- This fragment defines a reusable parent layout for Thymeleaf templates -->
 <html
+  class="dark"
   lang="en"
   th:fragment="parent(content, title, script)"
   xmlns:th="http://www.thymeleaf.org"
@@ -17,7 +18,7 @@
     <link rel="stylesheet" data-th-href="@{/css/output.css}" />
   </head>
 
-  <body class="p-4">
+  <body class="p-4 dark:bg-gray-900 dark:text-white">
     <!-- Navigation bar -->
     <nav th:replace="fragments/navbar :: navbar" class="p-4">
       <!-- Navigation items will be replaced here -->

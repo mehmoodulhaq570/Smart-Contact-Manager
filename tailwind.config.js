@@ -8,5 +8,5 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-  darkMode: "class",
+  darkMode: "selector", // Enable dark mode based on a class
 };
