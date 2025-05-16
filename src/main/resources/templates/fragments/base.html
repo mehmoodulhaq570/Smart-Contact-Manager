@@ -1,6 +1,42 @@
-<div>
-  <div class="parent-fragment" th:fragment="parent">
-    <h1>This is Parent Tag</h1>
-    <p>This is a Parent tag that can be reused across different pages.</p>
-  </div>
-</div>
+<!DOCTYPE html>
+<!-- This contains all the common things that can be used by other html files -->
+<!-- This fragment defines a reusable parent layout for Thymeleaf templates -->
+<html lang="en" 
+      th:fragment="parent(content, title)" 
+      xmlns:th="http://www.thymeleaf.org">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:replace="${title}">Base Page</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" data-th-href="@{/css/output.css}" />
+  </head>
+
+  <body class="p-4">
+      <ul>
+        <li>
+          <a href="/home">Home</a>
+        </li>
+        <li>
+          <a href="/about">About</a>
+        </li>
+        <li>
+          <a href="/services">Services</a>
+        </li>
+      </ul>
+    
+      <div class="p-4">
+        <section th:replace="${content}" th:if="${content != null}">
+      <!-- Default content if 'content' is not provided -->
+      <p>Content is not available.</p>
+    </section>
+      </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+  </body>
+</html>

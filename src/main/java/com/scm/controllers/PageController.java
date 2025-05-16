@@ -21,8 +21,8 @@ public class PageController {
     @RequestMapping(value = "/about")
     public String about(Model model) {
         System.out.println("About page accessed");
-        model.addAttribute("title", "About Us");
-        model.addAttribute("content", "We are a leading technology company.");
+        // model.addAttribute("title", "About Us");
+        // model.addAttribute("content", "We are a leading technology company.");
         return "about"; // Return the name of the view (about.html)
     }
 
