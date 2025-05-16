@@ -17,6 +17,26 @@ public class PageController {
         return "home"; // Return the name of the view (home.html)
     }
 
+    // about 
+    @RequestMapping(value = "/about")
+    public String about(Model model) {
+        System.out.println("About page accessed");
+        model.addAttribute("title", "About Us");
+        model.addAttribute("content", "We are a leading technology company.");
+        return "about"; // Return the name of the view (about.html)
+    }
+
+
+    //services
+    @RequestMapping(value = "/services")
+    public String services(Model model) {
+        System.out.println("Services page accessed");
+        model.addAttribute("title", "Our Services");
+        model.addAttribute("content", "We offer a wide range of services.");
+        return "services"; // Return the name of the view (services.html)
+    }
+    
+
 
 
 }
