@@ -35,6 +35,34 @@ public class PageController {
         model.addAttribute("content", "We offer a wide range of services.");
         return "services"; // Return the name of the view (services.html)
     }
+
+        //contact
+    @RequestMapping(value = "/contact")
+    public String contact(Model model) {
+        System.out.println("Contact page accessed");
+        model.addAttribute("title", "Contact Us");
+        model.addAttribute("content", "We offer a wide range of contacts.");
+        return "contact"; // Return the name of the view (contact.html)
+    }
+
+    //login
+    @RequestMapping(value = "/login")
+    public String login(Model model) {
+        System.out.println("Login page accessed");
+        model.addAttribute("title", "Login");
+        model.addAttribute("content", "Please enter your credentials.");
+        return "login"; // Return the name of the view (login.html)
+    }
+
+    //Signup
+    @RequestMapping(value = "/signup")
+    public String signup(Model model) {
+        System.out.println("Signup page accessed");
+        model.addAttribute("title", "Signup");
+        model.addAttribute("content", "Please enter your details.");
+        return "signup"; // Return the name of the view (signup.html)
+    }
+
     
 
 
