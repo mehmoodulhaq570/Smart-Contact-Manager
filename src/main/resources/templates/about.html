@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{fragments/base :: parent(~{::#content}, ~{::#title})}">
+<html
+  lang="en"
+  th:replace="~{fragments/base :: parent(~{::#content}, ~{::#title}, ~{::script})}"
+>
   <head>
     <title id="title">About Page</title>
   </head>
@@ -11,5 +14,8 @@
         CSS framework.
       </p>
     </div>
+    <script>
+      console.log("About page");
+    </script>
   </body>
 </html>

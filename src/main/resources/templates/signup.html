@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  th:replace="~{fragments/base :: parent(~{::#content}, ~{::title}, ~{::script})}"
+>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Signup Page</title>
+    <title id="title">Signup Page</title>
   </head>
   <body>
-    <h1>Signup Page</h1>
-    <p>This is signup page</p>
+    <section id="content">
+      <h1>Welcome to Signup Page</h1>
+      <p>
+        This is a simple example of a Thymeleaf template that uses the Flowbite
+        CSS framework.
+      </p>
+    </section>
+    <script>
+      console.log("Signup page");
+    </script>
   </body>
 </html>

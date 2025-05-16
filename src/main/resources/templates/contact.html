@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html
   lang="en"
-  th:replace="~{fragments/base :: parent(~{::#content}, ~{::#title})}"
+  th:replace="~{fragments/base :: parent(~{::#content}, ~{::#title}, ~{::script})}"
 >
   <head>
     <title id="title">Contact Page</title>
@@ -14,5 +14,8 @@
         CSS framework.
       </p>
     </section>
+    <script>
+      console.log("Contact page");
+    </script>
   </body>
 </html>

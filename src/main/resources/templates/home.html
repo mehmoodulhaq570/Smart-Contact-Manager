@@ -1,41 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  th:replace="~{fragments/base :: parent(~{::#content}, ~{::title}, ~{::script})}"
+>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" data-th-href="@{/css/output.css}" />
-    <style></style>
+    <title id="title">Home Page</title>
   </head>
   <body>
-    <div class="bg-gray-100 w-1/2 p-4 flex flex-col space-y-3 mx-auto mt-4">
-      <h1 class="text-2xl font-bold" data-th:text="${name}">
-        Welcome to SCM 2.0 home page
-      </h1>
-
-      <p>Tagline: <span th:text="${tagline}"></span></p>
-      <p>Github Link: <span th:text="${githublink}"></span></p>
-      <a th:href="${githublink}">Visit Github Link Here!</a>
-
+    <section id="content">
+      <h1>Welcome to Home Page</h1>
       <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat, eum
-        quis totam magnam ea optio voluptates tenetur eveniet fugiat culpa
-        veniam. Eligendi voluptatibus quo voluptatem suscipit error harum
-        dolorum nihil.
+        This is a simple example of a Thymeleaf template that uses the Flowbite
+        CSS framework.
       </p>
-
-      <div>
-        <button
-          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-400"
-        >
-          Click Here !
-        </button>
-      </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    </section>
+    <script>
+      console.log("Home page");
+    </script>
   </body>
 </html>

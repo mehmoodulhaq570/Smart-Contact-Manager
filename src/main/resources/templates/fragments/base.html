@@ -3,7 +3,7 @@
 <!-- This fragment defines a reusable parent layout for Thymeleaf templates -->
 <html
   lang="en"
-  th:fragment="parent(content, title)"
+  th:fragment="parent(content, title, script)"
   xmlns:th="http://www.thymeleaf.org"
 >
   <head>
@@ -36,5 +36,7 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+    <!-- Custom script fragment for child templates -->
+    <script th:replace="${script}" th:if="${script != null}"></script>
   </body>
 </html>
