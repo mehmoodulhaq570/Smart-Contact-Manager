@@ -2,7 +2,7 @@
 <!-- This contains all the common things that can be used by other html files -->
 <!-- This fragment defines a reusable parent layout for Thymeleaf templates -->
 <html
-  class="dark"
+  class="light"
   lang="en"
   th:fragment="parent(content, title, script)"
   xmlns:th="http://www.thymeleaf.org"
@@ -14,6 +14,16 @@
     <link
       href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
       rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" data-th-href="@{/css/output.css}" />
   </head>
@@ -38,6 +48,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <!-- Custom script fragment for child templates -->
+    <script th:src="@{/js/script.js}"></script>
     <script th:replace="${script}" th:if="${script != null}"></script>
   </body>
 </html>
