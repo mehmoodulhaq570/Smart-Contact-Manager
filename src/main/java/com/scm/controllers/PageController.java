@@ -1,11 +1,21 @@
 package com.scm.controllers;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.scm.entities.User;
+import com.scm.forms.UserForm;
+import com.scm.services.UserService;
 
 
 @Controller
 public class PageController {
+
+    @Autowired
+    private UserService userService;
 
     // This method will handle the request for the home page
     @RequestMapping(value = "/home")
@@ -57,13 +67,39 @@ public class PageController {
     //Signup
     @RequestMapping(value = "/signup")
     public String signup(Model model) {
-        System.out.println("Signup page accessed");
-        model.addAttribute("title", "Signup");
-        model.addAttribute("content", "Please enter your details.");
+        UserForm userForm = new UserForm();
+        model.addAttribute("userForm", userForm); // Add an attribute to the model
         return "signup"; // Return the name of the view (signup.html)
     }
 
-    
+    // processing register
+
+    @RequestMapping(value = "/do-register", method = RequestMethod.POST)
+    public String processRegister(@ModelAttribute UserForm userForm) {
+        System.out.println("Processing registration");
+        // fetch form data (UserForm)
+        System.out.println(userForm);
+        // validate the data
+
+        // save the data to the database (UserService)
+        //   Get data form user from and save that into user
+        User user = User.builder()
+        .name(userForm.getName())
+        .email(userForm.getEmail())
+        .password(userForm.getPassword())
+        .phoneNumber(userForm.getPhoneNumber())
+        .about(userForm.getAbout())
+        .profilePicture("@static/images/profilepic.png")
+        .build(); // Create a new User object
+
+        User saveUser = userService.saveUser(user);
+        System.out.println("User saved: " + saveUser);
+
+        // message = successful registration
+        
+        // redirect to the login page
+        return "redirect:/signup"; // Return the name of the view (register.html)
+    }
 
 
 
