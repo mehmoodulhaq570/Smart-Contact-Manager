@@ -1,12 +1,14 @@
 package com.scm.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
+import com.scm.services.impl.SecurityCustomUserDetailServices;
 
 @Configuration
 public class SecurityConfig {
@@ -35,20 +37,25 @@ public class SecurityConfig {
     //     return inMemoryUserDetailsManager;
     // }
 
+    @Autowired
+    private SecurityCustomUserDetailServices userDetailServices;
+
     // It has all methods available by which we can register to our service
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         // Get the object of user details service
-        daoAuthenticationProvider.setUserDetailsService(null);
+        daoAuthenticationProvider.setUserDetailsService(userDetailServices);
         // Set the object of password encoder
-        daoAuthenticationProvider.setPasswordEncoder(null);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return daoAuthenticationProvider;
     }
 
-    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    // daoAuthenticationProvider need the userDetailsService and passwordEncoder which we have implemented in the user by implementing the User to the userDetailsService
+    // We need to override the UserDetailsService method by giving our own implementation in the SecurityCustomUserDetailServices class
 
 }

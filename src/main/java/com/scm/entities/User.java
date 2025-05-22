@@ -2,11 +2,9 @@ package com.scm.entities;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
@@ -60,8 +58,11 @@ public class User implements UserDetails {
     private boolean phoneVerified=false;
     // SELF, GOOGLE, FACEBOOK, TWITTER
     @Enumerated(value = EnumType.STRING)
+
     @Builder.Default
-    private Providers provider=Providers.SELF;
+    @Column(nullable = false, columnDefinition = "varchar(255) default 'SELF'")
+    private Providers provider = Providers.SELF;
+    
     private String providerId;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
@@ -69,6 +70,7 @@ public class User implements UserDetails {
     private List<Contact> contacts = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @Builder.Default
     private List<String> rolesList = new ArrayList<>();
     
     @Override
