@@ -7,6 +7,9 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.Customizer;
 
 import com.scm.services.impl.SecurityCustomUserDetailServices;
 
@@ -41,6 +44,8 @@ public class SecurityConfig {
     private SecurityCustomUserDetailServices userDetailServices;
 
     // It has all methods available by which we can register to our service
+    // Configuration of authentication provider for spring security
+
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -51,11 +56,30 @@ public class SecurityConfig {
         return daoAuthenticationProvider;
     }
 
+
+    // Configure urls which one is public and which one is private
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        // configurations
+        httpSecurity.authorizeHttpRequests(authorize -> {
+                        //authorize.requestMatchers("/home", "/signup", "/services", "/about").permitAll();
+                        authorize.requestMatchers("/user/**").authenticated();
+                        authorize.anyRequest().permitAll();
+
+                });
+
+                // form default login
+                // If we need to change anything related to from login we just come here
+                httpSecurity.formLogin(Customizer.withDefaults());
+
+        return httpSecurity.build();
+    }
+
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // daoAuthenticationProvider need the userDetailsService and passwordEncoder which we have implemented in the user by implementing the User to the userDetailsService
+    // daoAuthenticationProvider needs the userDetailsService and passwordEncoder which we have implemented in the user by implementing the User to the userDetailsService
     // We need to override the UserDetailsService method by giving our own implementation in the SecurityCustomUserDetailServices class
 
 }

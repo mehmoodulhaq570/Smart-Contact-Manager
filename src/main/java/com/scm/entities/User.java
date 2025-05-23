@@ -22,7 +22,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "user")
+@Entity
 @Table(name = "users")
 @Getter
 @Setter
@@ -46,10 +46,11 @@ public class User implements UserDetails {
     private String about;
     @Column(columnDefinition = "TEXT")
     private String profilePicture;
-    //Information
+
+    //Default access level of the user
     @Builder.Default
     @Getter(value = AccessLevel.NONE)
-    private boolean enabled=false;
+    private boolean enabled=true;
 
     @Builder.Default
     private boolean emailVerified=false;

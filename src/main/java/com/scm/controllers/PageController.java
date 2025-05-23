@@ -15,6 +15,9 @@ import com.scm.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -22,6 +25,12 @@ public class PageController {
 
     @Autowired
     private UserService userService;
+
+    
+    @RequestMapping(value = "/")
+    public String index() {
+        return "redirect:/home"; // Return the name of the view (index.html)
+    }
 
     // This method will handle the request for the home page
     @RequestMapping(value = "/home")
@@ -114,12 +123,18 @@ public class PageController {
         user.setAbout(userForm.getAbout());
         user.setProfilePicture("@static/images/profilepic.png");
 
+        // Save the user to the database
+        User savedUser = userService.saveUser(user); // <-- Make sure this method exists in your UserService
+
+        System.out.println("User saved: " + savedUser);
+
         // message = successful registration
         Message message = Message.builder().content("Registration successful").type(MessageType.green).build();
         session.setAttribute("message", message);
 
         // redirect to the login page
-        return "redirect:/signup"; // Return the name of the view (register.html)
+        return "redirect:/signup"; 
+    // Return the name of the view (register.html)
     }
 
 
