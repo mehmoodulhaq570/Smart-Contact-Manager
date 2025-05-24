@@ -3,6 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,8 +16,6 @@ import com.scm.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -71,7 +70,7 @@ public class PageController {
     }
 
     //login
-    @RequestMapping(value = "/login")
+    @GetMapping(value = "/login")
     public String login(Model model) {
         System.out.println("Login page accessed");
         model.addAttribute("title", "Login");
@@ -100,20 +99,6 @@ public class PageController {
             System.out.println("Validation errors occurred");
             return "signup"; // Return the name of the view (register.html)
         }
-
-        // save the data to the database (UserService)
-        //   Get data form user from and save that into user
-        // User user = User.builder()
-        // .name(userForm.getName())
-        // .email(userForm.getEmail())
-        // .password(userForm.getPassword())
-        // .phoneNumber(userForm.getPhoneNumber())
-        // .about(userForm.getAbout())
-        // .profilePicture("@static/images/profilepic.png")
-        // .build(); // Create a new User object
-
-        // User saveUser = userService.saveUser(user);
-        // System.out.println("User saved: " + saveUser);
 
         User user = new User();
         user.setName(userForm.getName());

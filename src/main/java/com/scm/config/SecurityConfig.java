@@ -8,37 +8,21 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.config.Customizer;
 
 import com.scm.services.impl.SecurityCustomUserDetailServices;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 @Configuration
 public class SecurityConfig {
 
-    //private InMemoryUserDetailsManager inMemoryUserDetailsManager;
-
-    // // user create and login using java code with memory service
-    // @Bean
-    // public UserDetailsService userDetailsService() {
-    //     // Create an in-memory user details manager
-    //     UserDetails user1 = User
-    //     .withDefaultPasswordEncoder()
-    //     .username("admin123")
-    //     .password("admin123")
-    //     .roles("ADMIN","USER")
-    //     .build();
-
-    //     UserDetails user2 = User
-    //     .withDefaultPasswordEncoder()
-    //     .username("user123")
-    //     .password("user123")
-    //     //.roles("ADMIN","USER")
-    //     .build();
-
-    //     var inMemoryUserDetailsManager = new InMemoryUserDetailsManager(user1, user2);  
-    //     return inMemoryUserDetailsManager;
-    // }
 
     @Autowired
     private SecurityCustomUserDetailServices userDetailServices;
@@ -70,7 +54,45 @@ public class SecurityConfig {
 
                 // form default login
                 // If we need to change anything related to from login we just come here
-                httpSecurity.formLogin(Customizer.withDefaults());
+                httpSecurity.formLogin(formLogin -> {
+
+                    // Set our own login page url
+                    formLogin.loginPage("/login");
+                    formLogin.loginProcessingUrl("/authenticate");
+                    formLogin.successForwardUrl("/user/dashboard");
+                    //formLogin.failureForwardUrl("/login?error=true");
+                    formLogin.usernameParameter("email");
+                    formLogin.passwordParameter("password");
+                    //formLogin.defaultSuccessUrl("/home", true);
+
+                    // formLogin.failureHandler(new AuthenticationFailureHandler() {
+                    //     @Override
+                    //     public void onAuthenticationFailure(HttpServletRequest request,
+                    //                                         HttpServletResponse response,
+                    //                                         AuthenticationException exception) throws java.io.IOException, jakarta.servlet.ServletException {
+                    //         // Custom logic for handling authentication failure
+                    //         throw new UnsupportedOperationException("Unimplemented method 'onAuthenticationFailure'");
+                    //     }
+                    // });
+
+                    // formLogin.successHandler(new AuthenticationSuccessHandler() {
+                    //     @Override
+                    //     public void onAuthenticationSuccess(HttpServletRequest request,
+                    //                                         HttpServletResponse response,
+                    //                                         org.springframework.security.core.Authentication authentication) throws java.io.IOException, jakarta.servlet.ServletException {
+                    //         // Custom logic for handling authentication success
+                    //         throw new UnsupportedOperationException("Unimplemented method 'onAuthenticationSuccess'");
+                    //     }
+                    // });
+
+                });
+                httpSecurity.csrf(AbstractHttpConfigurer::disable);
+                // Disable CSRF protection for simplicity, but it's recommended to enable it in production
+                httpSecurity.logout(logout -> {
+                    logout.logoutUrl("/do-logout");
+                    logout.logoutSuccessUrl("/login?logout=true");
+                    logout.invalidateHttpSession(true);
+                });
 
         return httpSecurity.build();
     }
