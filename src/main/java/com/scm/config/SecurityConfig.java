@@ -94,6 +94,9 @@ public class SecurityConfig {
                     logout.invalidateHttpSession(true);
                 });
 
+                // Oauth2 Configuration
+                httpSecurity.oauth2Login(Customizer.withDefaults());
+
         return httpSecurity.build();
     }
 
