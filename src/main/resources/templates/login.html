@@ -28,12 +28,16 @@
               <!-- <p class="font-normal text-gray-400 dark:text-gray-400">
             </p> -->
 
-            <div th:if="${param.error}">
-              <p class="text-red-600 text-center my-3">Invalid email or password</p>
-            </div>
-            <div th:if="${param.logout}">
-              <p class="text-green-600 text-center my-3">You have been logged out</p>
-              `
+              <div th:if="${param.error}" class="text-red-600 text-center my-3">
+                Invalid email or password
+              </div>
+              <div
+                th:if="${param.logout}"
+                class="text-green-600 text-center my-3"
+              >
+                You have been logged out
+              </div>
+
               <!-- This is our form -->
               <form
                 method="post"
@@ -104,6 +108,20 @@
                   </button>
                 </div>
               </form>
+
+              <div class="social-buttions-container flex justify-center mt-10">
+                <a
+                  class="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-white text-gray-700 border border-gray-300 shadow hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium text-sm text-center dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-blue-800"
+                  data-th-href="@{'/oauth2/authorization/google'}"
+                >
+                  <img
+                    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                    alt="Google"
+                    class="w-5 h-5"
+                  />
+                  Login with Google
+                </a>
+              </div>
             </div>
           </div>
         </div>

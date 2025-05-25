@@ -8,20 +8,15 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.config.Customizer;
-
 import com.scm.services.impl.SecurityCustomUserDetailServices;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 public class SecurityConfig {
+
+    @Autowired
+    private OAuthAuthenticationSuccessHandler handler;
 
 
     @Autowired
@@ -92,10 +87,14 @@ public class SecurityConfig {
                     logout.logoutUrl("/do-logout");
                     logout.logoutSuccessUrl("/login?logout=true");
                     logout.invalidateHttpSession(true);
+                    logout.clearAuthentication(true);
                 });
 
                 // Oauth2 Configuration
-                httpSecurity.oauth2Login(Customizer.withDefaults());
+                httpSecurity.oauth2Login(oauth2 -> {
+                    oauth2.loginPage("/login");
+                    oauth2.successHandler(handler);
+                });
 
         return httpSecurity.build();
     }
