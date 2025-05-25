@@ -36,13 +36,13 @@ public class OAuthAuthenticationSuccessHandler implements AuthenticationSuccessH
                 logger.info("AuthenticationSuccessHandler");
 
 
-                    logger.info("OAuthAuthenicationSuccessHandler");
+                    logger.info("OAuthAuthenticationSuccessHandler");
 
                 // identify the provider
 
-                var oauth2AuthenicationToken = (OAuth2AuthenticationToken) authentication;
+                var oauth2AuthenticationToken = (OAuth2AuthenticationToken) authentication;
 
-                String authorizedClientRegistrationId = oauth2AuthenicationToken.getAuthorizedClientRegistrationId();
+                String authorizedClientRegistrationId = oauth2AuthenticationToken.getAuthorizedClientRegistrationId();
 
                 logger.info(authorizedClientRegistrationId);
 
@@ -52,43 +52,67 @@ public class OAuthAuthenticationSuccessHandler implements AuthenticationSuccessH
                     logger.info(key + " : " + value);
                 });
 
+                User user = new User();
+
+                // These are the user details that we need to set to default
+                user.setUserId(UUID.randomUUID().toString());
+                user.setRolesList(List.of(AppConstants.ROLE_USER)); // Set default role
+                user.setEmailVerified(true);
+                user.setEnabled(true);
+
+
+                if (authorizedClientRegistrationId.equals("google")) {
+                    //google
+                    // google attributes
+                    user.setEmail(oauthUser.getAttribute("email").toString());
+                    user.setName(oauthUser.getAttribute("name").toString());
+                    user.setProfilePicture(oauthUser.getAttribute("picture").toString());
+                    user.setProviderId(oauthUser.getName());
+                    user.setProvider(Providers.GOOGLE);
+                    user.setAbout("This is an account created using Google");
+                    user.setPhoneNumber("000-000-0000"); // Default phone number
+                    user.setPassword("googlepassword"); // Set a default password for OAuth users
+
+                    logger.info("Google OAuth2 authentication successful");
+
+
+                } else if (authorizedClientRegistrationId.equals("github")) {
+                    String email = oauthUser.getAttribute("email") != null ? oauthUser.getAttribute("email").toString() : oauthUser.getAttribute("login").toString() + "@gmail.com";
+                    String picture = oauthUser.getAttribute("avatar_url").toString();
+                    String name = oauthUser.getAttribute("login").toString();
+                    String providerUserId = oauthUser.getName();
+
+                    user.setEmail(email);
+                    user.setName(name);
+                    user.setProfilePicture(picture);
+                    user.setProviderId(providerUserId);
+                    user.setProvider(Providers.GITHUB);
+                    user.setAbout("This is an account created using GitHub");
+                    user.setPhoneNumber("000-000-0000"); // Default phone number
+                    user.setPassword("githubpassword"); // Set a default password for OAuth users
+
+                    logger.info("GitHub OAuth2 authentication successful");
+
+                    
+                } else {
+
+
+
+                    logger.warn("Unknown OAuth2 provider: " + authorizedClientRegistrationId);
+                }
+
+        
                 
-
-                // // Before redirecting fetch the user details and save it in database
-                // DefaultOAuth2User oauth2User = (DefaultOAuth2User) authentication.getPrincipal();
-                
-                // String email = oauth2User.getAttribute("email").toString();
-                // String name = oauth2User.getAttribute("name").toString();
-                // String picture = oauth2User.getAttribute("picture").toString();
-
-                // logger.info("User Details: Email: {}, Name: {}, Picture: {}", email, name, picture);
-
-                // // Create user and save in database
-
-                // User user = new User();
-                // user.setEmail(email);
-                // user.setName(name);
-                // user.setProfilePicture(picture);
-                // user.setPassword("oauth2password"); 
-                // user.setUserId(UUID.randomUUID().toString());
-                // user.setProvider(Providers.GOOGLE);
-                // user.setEnabled(true);
-                // user.setEmailVerified(true);
-                // user.setProviderId(user.getName());
-                // user.setRolesList(List.of(AppConstants.ROLE_USER)); // Set default role
-                // user.setAbout("This is an account created using Google");
-                // user.setPhoneNumber("000-000-0000"); // Default phone number
-                // user.setPhoneVerified(false);
-                
-
-                // User user2 = userRepositories.findByEmail(email).orElse(null);
-                // if (user2 == null) {
-                //     userRepositories.save(user);
-                //     logger.info("New user created with email: {}" + email);
-                // }
+                User user2 = userRepositories.findByEmail(user.getEmail()).orElse(null);
+                if (user2 == null) {
+                    userRepositories.save(user);
+                    logger.info("New user created with Database: " + user.getEmail());
 
                 new DefaultRedirectStrategy().sendRedirect(request, response, "/user/profile");
     }
 
 
 }
+}
+
+
