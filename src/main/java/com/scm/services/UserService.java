@@ -13,6 +13,7 @@ public interface UserService {
     boolean isUserExists(String userId);
     boolean isUserExistByUserEmail(String email);
     List<User> getAllUsers();
+    User getUserByEmail(String email);
     // Add more methods here based on user service logic
     
 

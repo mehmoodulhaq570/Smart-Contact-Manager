@@ -7,5 +7,12 @@
   </head>
   <body>
     <h1>This is user profile page</h1>
+    <h1 th:text="${LoggedInUser.name}"></h1>
+    <h1 th:text="${LoggedInUser.email}"></h1>
+
+    <div th:if="${LoggedInUser}">
+      <h1>User is logged in</h1>
+      <h1>This is user logged in section</h1>
+    </div>
   </body>
 </html>

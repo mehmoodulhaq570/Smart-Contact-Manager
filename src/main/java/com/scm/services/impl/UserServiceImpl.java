@@ -98,4 +98,8 @@ public class UserServiceImpl implements UserService{
         return userRepositories.findAll();
     }
 
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepositories.findByEmail(email).orElse(null);
+    }
 }
