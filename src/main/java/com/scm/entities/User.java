@@ -40,7 +40,7 @@ public class User implements UserDetails {
     private String password;
     @Column(unique = true, nullable = false)
     private String email;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = true)
     private String phoneNumber;
     @Column(columnDefinition = "TEXT")
     private String about;

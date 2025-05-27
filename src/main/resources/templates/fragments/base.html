@@ -30,9 +30,18 @@
 
   <body class="p-4 dark:bg-gray-900 bg-gray-100 dark:text-white">
     <!-- Navigation bar -->
-    <nav th:replace="fragments/navbar :: navbar" class="p-4">
-      <!-- Navigation items will be replaced here -->
-    </nav>
+
+    <!-- User is loggedin navbar -->
+    <div th:if="${LoggedInUser}">
+      <div th:replace="~{user/user_navbar :: user_navbar}"></div>
+    </div>
+
+    <!-- User is not loggedin -->
+    <div th:unless="${LoggedInUser}">
+      <nav th:replace="fragments/navbar :: navbar" class="p-4">
+        <!-- Navigation items will be replaced here -->
+      </nav>
+    </div>
 
     <div class="p-4">
       <section th:replace="${content}" th:if="${content != null}">

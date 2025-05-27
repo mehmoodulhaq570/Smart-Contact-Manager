@@ -1,13 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  th:replace="~{fragments/base :: parent(~{::#content}, ~{::title}, ~{::script})}"
+>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title data-th-text="${LoggedInUser.name}">Dashboard Page</title>
   </head>
   <body>
-    <h1>This is user dashboard page</h1>
+    <div id="content">
+      <!-- User is loggedin sidebar -->
+      <div th:if="${LoggedInUser}">
+        <div th:replace="~{user/user_sidebar :: user_sidebar}"></div>
+      </div>
 
-    <a data-th-href="@{'/do-logout'}">Logout</a>
+      <section class="pl-64 pt-20">
+        <div class="flex justify-center flex-col items-center">
+          <h1 class="text-5xl">Welcome to Dashboard Page</h1>
+          <p>
+            This is a simple example of a Thymeleaf template that uses the
+            Flowbite CSS framework.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      console.log("Dashboard page");
+    </script>
   </body>
 </html>

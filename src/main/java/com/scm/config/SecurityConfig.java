@@ -54,32 +54,11 @@ public class SecurityConfig {
                     // Set our own login page url
                     formLogin.loginPage("/login");
                     formLogin.loginProcessingUrl("/authenticate");
-                    formLogin.successForwardUrl("/user/dashboard");
+                    formLogin.successForwardUrl("/user/profile");
                     //formLogin.failureForwardUrl("/login?error=true");
                     formLogin.usernameParameter("email");
                     formLogin.passwordParameter("password");
-                    //formLogin.defaultSuccessUrl("/home", true);
-
-                    // formLogin.failureHandler(new AuthenticationFailureHandler() {
-                    //     @Override
-                    //     public void onAuthenticationFailure(HttpServletRequest request,
-                    //                                         HttpServletResponse response,
-                    //                                         AuthenticationException exception) throws java.io.IOException, jakarta.servlet.ServletException {
-                    //         // Custom logic for handling authentication failure
-                    //         throw new UnsupportedOperationException("Unimplemented method 'onAuthenticationFailure'");
-                    //     }
-                    // });
-
-                    // formLogin.successHandler(new AuthenticationSuccessHandler() {
-                    //     @Override
-                    //     public void onAuthenticationSuccess(HttpServletRequest request,
-                    //                                         HttpServletResponse response,
-                    //                                         org.springframework.security.core.Authentication authentication) throws java.io.IOException, jakarta.servlet.ServletException {
-                    //         // Custom logic for handling authentication success
-                    //         throw new UnsupportedOperationException("Unimplemented method 'onAuthenticationSuccess'");
-                    //     }
-                    // });
-
+                
                 });
                 httpSecurity.csrf(AbstractHttpConfigurer::disable);
                 // Disable CSRF protection for simplicity, but it's recommended to enable it in production
