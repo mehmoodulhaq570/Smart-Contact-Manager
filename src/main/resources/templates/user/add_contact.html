@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  th:replace="~{fragments/base :: parent(~{::#content}, ~{::title}, ~{::script})}"
+>
+  <head>
+    <title>Add Contacts</title>
+  </head>
+  <body>
+    <div id="content">
+      <!-- User is loggedin sidebar -->
+      <div th:if="${LoggedInUser}">
+        <div th:replace="~{user/user_sidebar :: user_sidebar}"></div>
+      </div>
+
+      <section class="pl-64 pt-20" style="height: 1000px">
+        <div class="grid grid-cols-12">
+          <div
+            class="col-span-12 flex justify-center items-center"
+            style="height: 100%"
+          >
+            <div
+              class="card block p-8 w-auto bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+            >
+              <h1 class="text-2xl font-semibold">Add New Contact</h1>
+              <p class="text-gray-500">
+                This contact will be stored in cloud, you can directly email
+                this client from SCM
+              </p>
+
+              <form action="" class="mt-5">
+                <!-- name form  -->
+                <div class="mb-3">
+                  <label
+                    for="input-group-1"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >Your Email</label
+                  >
+                  <div class="relative mb-6">
+                    <div
+                      class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+                    >
+                      <svg
+                        class="w-4 h-4 text-gray-500 dark:text-gray-400"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 20 16"
+                      >
+                        <path
+                          d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"
+                        />
+                        <path
+                          d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"
+                        />
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      id="input-group-1"
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                      placeholder="name@flowbite.com"
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      console.log("Add Contacts page");
+    </script>
+  </body>
+</html>
