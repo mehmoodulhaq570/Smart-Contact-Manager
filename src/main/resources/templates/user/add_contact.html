@@ -22,6 +22,8 @@
             <div
               class="card block p-8 w-auto bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
             >
+              <div th:replace="fragments/message :: messagebox"></div>
+
               <h1 class="text-2xl font-semibold">Add New Contact</h1>
               <p class="text-gray-500">
                 This contact will be stored in cloud, you can directly email
@@ -41,7 +43,7 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >Contact Name</label
                   >
-                  <div class="relative mb-6">
+                  <div class="relative mb-2">
                     <div
                       class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
                     >
@@ -55,6 +57,15 @@
                       th:field="*{name}"
                     />
                   </div>
+                  <p
+                    class="text-red-500"
+                    th:if="${#fields.hasErrors('name')}"
+                    th:errors="*{name}
+                      "
+                  >
+                    <!-- Error message for name field -->
+                    Name is required
+                  </p>
                 </div>
 
                 <!-- Contact email   -->
@@ -65,7 +76,7 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >Contact Email</label
                   >
-                  <div class="relative mb-6">
+                  <div class="relative mb-2">
                     <div
                       class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
                     >
@@ -79,6 +90,15 @@
                       th:field="*{email}"
                     />
                   </div>
+                  <p
+                    class="text-red-500"
+                    th:if="${#fields.hasErrors('email')}"
+                    th:errors="*{email}
+                      "
+                  >
+                    <!-- Error message for email field -->
+                    Email is required
+                  </p>
                 </div>
 
                 <!-- Contact Phone No   -->
@@ -89,7 +109,7 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >Contact Phone No</label
                   >
-                  <div class="relative mb-6">
+                  <div class="relative mb-2">
                     <div
                       class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
                     >
@@ -103,6 +123,15 @@
                       th:field="*{phoneNumber}"
                     />
                   </div>
+                  <p
+                    class="text-red-500"
+                    th:if="${#fields.hasErrors('phoneNumber')}"
+                    th:errors="*{phoneNumber}
+                      "
+                  >
+                    <!-- Error message for phone number field -->
+                    Phone Number is required
+                  </p>
                 </div>
 
                 <!-- Contact Address   -->
@@ -113,7 +142,7 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                     >Contact Address</label
                   >
-                  <div class="relative mb-6">
+                  <div class="relative mb-2">
                     <div
                       class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
                     >
@@ -127,6 +156,15 @@
                       th:field="*{address}"
                     />
                   </div>
+                  <p
+                    class="text-red-500"
+                    th:if="${#fields.hasErrors('address')}"
+                    th:errors="*{address}
+                      "
+                  >
+                    <!-- Error message for address field -->
+                    Address is required
+                  </p>
                 </div>
 
                 <!-- Contact Description -->
