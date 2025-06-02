@@ -3,6 +3,7 @@ package com.scm.services;
 import java.util.List;
 
 import com.scm.entities.Contact;
+import com.scm.entities.User;
 
 public interface ContactService {
 
@@ -26,5 +27,7 @@ public interface ContactService {
 
     // Get contacts by user ID
     List<Contact> getContactsByUserId(String id);
+
+    List<Contact> getContactsByUser(User user);
 
 }

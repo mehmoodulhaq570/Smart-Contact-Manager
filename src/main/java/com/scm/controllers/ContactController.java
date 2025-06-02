@@ -1,4 +1,6 @@
 package com.scm.controllers;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +100,21 @@ public class ContactController {
         contactService.saveContact(contact);
         System.out.println(contactForm);
         return "redirect:/user/contacts/add"; // Redirect to the contacts list page
+    }
+
+    @RequestMapping
+    public String viewContacts(Model model, Authentication authentication){
+
+        // Load all the contacts
+        String username = Helper.getEmailOfLoggedInUser(authentication);
+
+        User user = userService.getUserByEmail(username);
+
+        List<Contact> contact = contactService.getContactsByUser(user);
+
+        model.addAttribute("contacts", contact);
+
+        return "user/contacts"; // This should return the name of the contacts list view
     }
 
 }
