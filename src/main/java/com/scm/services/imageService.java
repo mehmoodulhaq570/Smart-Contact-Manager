@@ -6,4 +6,6 @@ public interface imageService {
 
     String uploadImage(MultipartFile contactImage);
 
+    String getUrlFromPublicId(String publicId);
+
 }

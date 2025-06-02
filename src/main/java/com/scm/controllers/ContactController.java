@@ -87,6 +87,7 @@ public class ContactController {
 
         // set the contact picture url
         contact.setPicture(fileURL);
+        
 
         // set the message to display
         session.setAttribute("message", Message.builder()
@@ -94,7 +95,7 @@ public class ContactController {
             .type(MessageType.green)
             .build());
 
-        //contactService.saveContact(contact);
+        contactService.saveContact(contact);
         System.out.println(contactForm);
         return "redirect:/user/contacts/add"; // Redirect to the contacts list page
     }

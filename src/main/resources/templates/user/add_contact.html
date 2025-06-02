@@ -233,9 +233,18 @@
                     >Contact Image</label
                   >
                   <input
+                    id="image_file_input"
                     class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                     th:field="*{contactImage}"
                     type="file"
+                  />
+
+                  <!-- Image preview -->
+                  <img
+                    class="max-h-52 mx-auto rounded-lg shadow m-3"
+                    src=""
+                    id="upload_image_preview"
+                    alt=""
                   />
                 </div>
 
@@ -275,6 +284,8 @@
         </div>
       </section>
     </div>
+
+    <script th:src="@{/js/admin.js}"></script>
 
     <script>
       console.log("Add Contacts page");
