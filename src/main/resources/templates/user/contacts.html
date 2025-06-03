@@ -133,7 +133,7 @@
                 <tbody>
                   <tr
                     th:object="${c}"
-                    th:each="c : ${contacts}"
+                    th:each="c : ${pageContact.content}"
                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600"
                   >
                     <th
@@ -194,17 +194,57 @@
                     <td class="px-6 py-4">
                       <div>
                         <a href="" class="p-1">
-                          <i class="fa-solid fa-pen-to-square"></i> 
+                          <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                         <a href="" class="p-1">
                           <i class="fa-solid fa-trash"></i>
                         </a>
-                        <a href="" class="p-1"> <i class="fa-solid fa-eye"></i> </a>
+                        <a href="" class="p-1">
+                          <i class="fa-solid fa-eye"></i>
+                        </a>
                       </div>
                     </td>
                   </tr>
                 </tbody>
               </table>
+
+              <!-- pagination container -->
+              <div
+                class="pagination_container p-5 bg-white dark:bg-gray-800 text-center"
+              >
+                <nav aria-label="Page navigation example">
+                  <ul class="inline-flex -space-x-px text-base h-10">
+                    <li th:unless="${pageContact.first}">
+                      <a
+                        th:href="@{'/user/contacts?size='+${pageSize}+'&page='+${pageContact.number-1}}"
+                        href="#"
+                        class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        >Previous</a
+                      >
+                    </li>
+                    <li
+                      th:each="index: ${#numbers.sequence(0, pageContact.totalPages-1)}"
+                    >
+                      <a
+                        th:href="@{'/user/contacts?size='+${pageSize}+'&page='+${index}}"
+                        href="#"
+                        th:classappend="${index == pageContact.number} ? 'bg-blue-500 dark:bg-blue-600 text-white' : 'bg-white dark:bg-gray-800'"
+                        class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                      >
+                        <span th:text="${index+1}"></span>
+                      </a>
+                    </li>
+                    <li th:if="${!pageContact.last}">
+                      <a
+                        th:href="@{'/user/contacts?size='+${pageSize}+'&page='+${pageContact.number+1}}"
+                        href="#"
+                        class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                        >Next</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
             </div>
           </div>
         </div>

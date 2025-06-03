@@ -2,6 +2,8 @@ package com.scm.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.scm.entities.Contact;
 import com.scm.entities.User;
 
@@ -28,6 +30,6 @@ public interface ContactService {
     // Get contacts by user ID
     List<Contact> getContactsByUserId(String id);
 
-    List<Contact> getContactsByUser(User user);
+    Page<Contact> getContactsByUser(User user, int page, int size, String sortBy, String direction);
 
 }
