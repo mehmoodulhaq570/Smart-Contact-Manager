@@ -127,4 +127,38 @@ public class ContactController {
         return "user/contacts"; // This should return the name of the contacts list view
     }
 
+    // Search Handler
+
+    @RequestMapping(value = "/search")
+    public String searchHandler(
+        @RequestParam("field") String field,
+        @RequestParam("keyword") String keyword,
+        @RequestParam(value = "page", defaultValue = "0") int page,
+        @RequestParam(value = "size", defaultValue = AppConstants.PAGE_SIZE + "") int size,
+        @RequestParam(value = "sortBy", defaultValue = "name") String sortBy,
+        @RequestParam(value = "direction", defaultValue = "asc") String direction,
+        Authentication authentication,
+        Model model
+    ){
+        logger.info("Searching for contacts with field: {} and keyword: {}", field, keyword);
+
+        var user = userService.getUserByEmail(Helper.getEmailOfLoggedInUser(authentication))
+
+        Page<Contact> pageContact = null;
+        if (field.equalsIgnoreCase("name")) {
+            pageContact = contactService.searchByName(keyword, size, page, sortBy, direction);
+        }
+        else if(field.equalsIgnoreCase("email")){
+            pageContact = contactService.searchByEmail(keyword, size, page, sortBy, direction);
+        }
+        else if(field.equalsIgnoreCase("phone")){
+            pageContact = contactService.searchByPhoneNumber(keyword, size, page, sortBy, direction);
+        }
+
+        logger.info("pageContact = {}", pageContact);
+        model.addAttribute("pageContact", pageContact);
+
+        return "user/search";
+    }
+
 }
