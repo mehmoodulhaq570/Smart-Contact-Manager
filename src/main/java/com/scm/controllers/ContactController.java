@@ -142,7 +142,7 @@ public class ContactController {
     ){
         logger.info("Searching for contacts with field: {} and keyword: {}", field, keyword);
 
-        var user = userService.getUserByEmail(Helper.getEmailOfLoggedInUser(authentication))
+        var user = userService.getUserByEmail(Helper.getEmailOfLoggedInUser(authentication));
 
         Page<Contact> pageContact = null;
         if (field.equalsIgnoreCase("name")) {
