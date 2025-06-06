@@ -1,4 +1,4 @@
-# Smart Contact Manager 2.0 Kontaktr App Kontaktr App
+# Smart Contact Manager 2.0
 
 **Smart Contact Manager (SCM) 2.0** is a full-fledged web application built with Java and Spring Boot, designed to help you manage your contacts efficiently. It offers a range of features from basic contact storage to advanced functionalities like social logins, cloud-based image storage, and direct emailing.
 

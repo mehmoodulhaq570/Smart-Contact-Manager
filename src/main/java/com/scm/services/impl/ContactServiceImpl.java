@@ -66,20 +66,20 @@ public class ContactServiceImpl implements ContactService{
     }
 
     @Override
-    public Page<Contact> searchByName(String nameKeyword, int size, int page, String sortBy, String order) {
-        
-        return contactRepo.findByNameContaining(nameKeyword, PageRequest.of(page, size, Sort.by(order.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy)));
+    public Page<Contact> searchByName(String nameKeyword, int size, int page, String sortBy, String order, User user) {
+
+        return contactRepo.findByUserAndNameContaining(user, nameKeyword, PageRequest.of(page, size, Sort.by(order.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy)));
     }
 
     @Override
-    public Page<Contact> searchByEmail(String emailKeyword, int size, int page, String sortBy, String order) {
-        return contactRepo.findByEmailContaining(emailKeyword, PageRequest.of(page, size, Sort.by(order.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy)));
+    public Page<Contact> searchByEmail(String emailKeyword, int size, int page, String sortBy, String order, User user) {
+        return contactRepo.findByUserAndEmailContaining(user, emailKeyword, PageRequest.of(page, size, Sort.by(order.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy)));
     }
 
     @Override
     public Page<Contact> searchByPhoneNumber(String phoneNumberKeyword, int size, int page, String sortBy,
-            String order) {
-        return contactRepo.findByPhoneNumberContaining(phoneNumberKeyword, PageRequest.of(page, size, Sort.by(order.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy)));
+            String order, User user) {
+        return contactRepo.findByUserAndPhoneNumberContaining(user, phoneNumberKeyword, PageRequest.of(page, size, Sort.by(order.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC, sortBy)));
     }
 
 

@@ -15,16 +15,18 @@
 
       <section class="pl-64 pt-20">
         <div class="flex justify-center flex-col items-center">
-          <h1 class="text-5xl">Welcome to Search Page</h1>
-          <p>
-            This is search page where you can find various resources and
-            information.
-          </p>
+          <h1 class="text-5xl">Search Results</h1>
+          <p th:text="${pageContact.totalElements} + 'results Found'"></p>
         </div>
 
         <div class="contacts_container p-5">
           <div class="relative p-5 overflow-x-auto shadow-md sm:rounded-lg">
-            <form action="" th:action="@{/user/contacts/search}" method="get">
+            <form
+              action=""
+              th:object="${ContactSearchForm}"
+              th:action="@{/user/contacts/search}"
+              method="get"
+            >
               <div
                 class="flex p-5 space-x-2 items-center justify-start flex-column flex-wrap md:flex-row space-y-4 md:space-y-0 pb-4 bg-white dark:bg-gray-900"
               >
@@ -32,11 +34,12 @@
 
                 <div>
                   <select
+                    th:field="*{field}"
                     name="field"
                     id="countries_disabled"
                     class="w-48 mx-auto bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
-                    <option selected>Select Field</option>
+                    <option selected value="">Select Field</option>
                     <option value="name">Name</option>
                     <option value="email">Email</option>
                     <option value="phone">Phone</option>
@@ -65,7 +68,7 @@
                     </svg>
                   </div>
                   <input
-                    name="keyword"
+                    th:field="*{value}"
                     type="text"
                     id="table-search-users"
                     class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -82,6 +85,7 @@
             </form>
 
             <table
+              th:if="${pageContact.empty>0}"
               class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
             >
               <thead
@@ -171,6 +175,7 @@
 
             <!-- pagination container -->
             <div
+              th:if="${pageContact.empty>0}"
               class="pagination_container p-5 bg-white dark:bg-gray-800 text-center"
             >
               <nav aria-label="Page navigation example">
@@ -206,6 +211,12 @@
                 </ul>
               </nav>
             </div>
+            <h1
+              class="text-5xl text-center bg-white p-4"
+              th:if="${pageContact.empty<=0}"
+            >
+              No Result Found
+            </h1>
           </div>
         </div>
       </section>
